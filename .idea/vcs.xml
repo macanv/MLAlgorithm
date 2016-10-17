@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/com/dmml/linear" vcs="Git" />
     <mapping directory="E:\workstation\JGibbLDA-v.1.0\MLAlgorithm\gradient-descent" vcs="Git" />
   </component>
 </project>
