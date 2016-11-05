@@ -20,5 +20,6 @@
     </orderEntry>
     <orderEntry type="library" exported="" name="gov.nist.math:jama:1.0.3" level="project" />
     <orderEntry type="library" name="org.apache.poi:poi-contrib:3.1-FINAL" level="project" />
+    <orderEntry type="library" exported="" name="ujmp-complete-0.3.0" level="project" />
   </component>
 </module>
