@@ -18,10 +18,13 @@ public class TestLR {
         Map<Integer, List<Integer>> data = loadData(path);
         Map<Integer, List<Integer>> trainData = new HashMap<>();
         Map<Integer, List<Integer>> testData = new HashMap<>();
-        partitionData(data,trainData, testData);
+        int dSzie = partitionData(data,trainData, testData);
 
-        LogisticRegression logisticRegression = new LogisticRegression();
+        LogisticRegression logisticRegression = new LogisticRegression(dSzie);
+        //训练求参数
+        System.out.println("train model!");
         logisticRegression.trainLR(trainData, 100);
+        //新数据的二分类
         double p_rigth = logisticRegression.LRClassification(testData);
         System.out.printf("p_right = " + p_rigth);
     }
@@ -47,13 +50,10 @@ public class TestLR {
 //                ArrayList<Integer> d = new ArrayList<Integer>(linedata.subList(1, linedata.size()));
                 data.put(linedata.get(0), linedata.subList(1,linedata.size()));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return data;
-
     }
 
 
@@ -63,26 +63,27 @@ public class TestLR {
      * @param trainData   训练数据
      * @param testData  测试数据
      */
-    public static void partitionData(Map<Integer, List<Integer>> data, Map<Integer, List<Integer>> trainData, Map<Integer, List<Integer>> testData){
-        trainData = new HashMap<>(data);
+    public static int partitionData(Map<Integer, List<Integer>> data, Map<Integer, List<Integer>> trainData, Map<Integer, List<Integer>> testData){
         int numberOfTest = (int)(data.size() * 0.2);
         Random random = new Random();
         int[] index = new int[numberOfTest];
-
+        int dSize = 0;
         for (int i = 0; i < numberOfTest ; ++i){
             index[i] = random.nextInt(data.size());
         }
-
+        Arrays.sort(index);
         int temp = 0;
         int i = 0;
         for (Map.Entry<Integer, List<Integer>> entry : data.entrySet()){
             if (temp++ == index[i]) {
                 testData.put(entry.getKey(), entry.getValue());
-                trainData.remove(entry.getKey());
                 i++;
+            }else {
+                trainData.put(entry.getKey(), entry.getValue());
+                dSize = entry.getValue().size() - 1;
             }
 
         }
-
+        return dSize;
     }
 }
